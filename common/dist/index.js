@@ -26,12 +26,11 @@ exports.userUpdateInput = zod_1.default.object({
 });
 exports.createBlogInput = zod_1.default.object({
     title: zod_1.default.string().min(1),
-    body: zod_1.default.string().min(1),
+    content: zod_1.default.string().min(1)
 });
 exports.updateBlogInput = zod_1.default.object({
-    id: zod_1.default.string().min(1),
     title: zod_1.default.string().min(1).optional(),
-    body: zod_1.default.string().min(1).optional(),
+    content: zod_1.default.string().min(1).optional(),
 });
 exports.createCommentInput = zod_1.default.object({
     body: zod_1.default.string().min(1),

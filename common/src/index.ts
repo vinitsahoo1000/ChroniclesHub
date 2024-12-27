@@ -25,13 +25,12 @@ export const userUpdateInput = z.object({
 
 export const createBlogInput = z.object({
     title: z.string().min(1),
-    body: z.string().min(1),
+    content: z.string().min(1)
 })
 
 export const updateBlogInput = z.object({
-    id: z.string().min(1),
     title: z.string().min(1).optional(),
-    body: z.string().min(1).optional(),
+    content: z.string().min(1).optional(),
 })
 
 export const createCommentInput = z.object({
