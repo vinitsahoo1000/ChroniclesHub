@@ -185,7 +185,8 @@ exports.userRouter.put("/update", middleware_1.authMiddleware, (req, res) => __a
             data: {
                 email: payload.email,
                 name: payload.name,
-                username: payload.username
+                username: payload.username,
+                bio: payload.bio
             }
         });
         if (!updatedUser) {
@@ -203,6 +204,64 @@ exports.userRouter.put("/update", middleware_1.authMiddleware, (req, res) => __a
                 error: e.errors
             });
         }
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+exports.userRouter.put("/passwordUpdate", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.userId;
+    try {
+        const password = zod_1.z.string().min(8).parse(req.body.password);
+        if (!password) {
+            return res.status(400).json({ message: "Invalid password" });
+        }
+        const user = yield prisma.user.findFirst({
+            where: {
+                id: userId
+            }
+        });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        const updatedUser = yield prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: {
+                password: hashedPassword
+            }
+        });
+        if (!updatedUser) {
+            return res.status(500).json({ message: "Failed to update password" });
+        }
+        return res.send({
+            message: "Password updated successfully",
+            user: updatedUser
+        });
+    }
+    catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+exports.userRouter.get("/details", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.userId;
+    try {
+        const user = yield prisma.user.findFirst({
+            where: {
+                id: userId
+            }
+        });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        return res.send({
+            message: "User details fetched successfully",
+            user: user
+        });
+    }
+    catch (e) {
         console.error(e);
         res.status(500).json({ message: "Internal server error" });
     }

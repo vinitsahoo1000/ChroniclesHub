@@ -204,7 +204,8 @@ userRouter.put("/update",authMiddleware,async(req:Request,res:Response):Promise<
             data:{
                 email:payload.email,
                 name:payload.name,
-                username:payload.username
+                username:payload.username,
+                bio:payload.bio
             }
         })
 
@@ -230,3 +231,68 @@ userRouter.put("/update",authMiddleware,async(req:Request,res:Response):Promise<
     }
 })
 
+userRouter.put("/passwordUpdate",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userId = req.userId;
+
+    try{
+        const password = z.string().min(8).parse(req.body.password)
+        if(!password){
+            return res.status(400).json({message:"Invalid password"})
+        }
+
+        const user = await prisma.user.findFirst({
+            where:{
+                id:userId
+            }
+        })
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+
+        const hashedPassword = await bcrypt.hash(password,10)
+        const updatedUser = await prisma.user.update({
+            where:{
+                id:userId
+            },
+            data:{
+                password:hashedPassword
+            }
+        })
+        if(!updatedUser){
+            return res.status(500).json({message:"Failed to update password"})
+        }
+
+        return res.send({
+            message: "Password updated successfully",
+            user: updatedUser
+        })
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
+
+
+userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userId = req.userId;
+
+    try{
+        const user = await prisma.user.findFirst({
+            where:{
+                id:userId
+            }
+        })
+
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+
+        return res.send({
+            message: "User details fetched successfully",
+            user: user
+        })
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
