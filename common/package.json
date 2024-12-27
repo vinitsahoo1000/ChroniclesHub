@@ -1,0 +1,14 @@
+{
+  "name": "@vinitsahoo1000/chronicleshub-common",
+  "version": "1.1.2",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vinit sahoo",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}
