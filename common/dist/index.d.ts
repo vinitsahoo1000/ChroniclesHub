@@ -31,6 +31,7 @@ export declare const loginInput: z.ZodObject<{
 export declare const userUpdateInput: z.ZodObject<{
     email: z.ZodOptional<z.ZodString>;
     name: z.ZodOptional<z.ZodString>;
+    bio: z.ZodOptional<z.ZodString>;
     imageUrl: z.ZodOptional<z.ZodString>;
     username: z.ZodOptional<z.ZodString>;
     password: z.ZodOptional<z.ZodString>;
@@ -39,12 +40,14 @@ export declare const userUpdateInput: z.ZodObject<{
     name?: string | undefined;
     username?: string | undefined;
     password?: string | undefined;
+    bio?: string | undefined;
     imageUrl?: string | undefined;
 }, {
     email?: string | undefined;
     name?: string | undefined;
     username?: string | undefined;
     password?: string | undefined;
+    bio?: string | undefined;
     imageUrl?: string | undefined;
 }>;
 export declare const createBlogInput: z.ZodObject<{

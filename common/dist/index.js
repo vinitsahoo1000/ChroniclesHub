@@ -19,6 +19,7 @@ exports.loginInput = zod_1.default.object({
 exports.userUpdateInput = zod_1.default.object({
     email: zod_1.default.string().email().optional(),
     name: zod_1.default.string().min(1).optional(),
+    bio: zod_1.default.string().min(1).optional(),
     imageUrl: zod_1.default.string().min(1).optional(),
     username: zod_1.default.string().min(1).optional(),
     password: zod_1.default.string().min(8).optional(),

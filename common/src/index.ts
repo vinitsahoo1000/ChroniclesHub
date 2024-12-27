@@ -17,6 +17,7 @@ export const loginInput = z.object({
 export const userUpdateInput = z.object({
     email: z.string().email().optional(),
     name: z.string().min(1).optional(),
+    bio: z.string().min(1).optional(),
     imageUrl: z.string().min(1).optional(),
     username: z.string().min(1).optional(),
     password: z.string().min(8).optional(),
