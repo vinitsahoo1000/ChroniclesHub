@@ -45,6 +45,7 @@ model Blog {
   authorId  String
   title     String
   content   String
+  imageUrl  String?
   likes     User[]   @relation("Liked")
   author    User     @relation(fields: [authorId], references: [id])
 }
