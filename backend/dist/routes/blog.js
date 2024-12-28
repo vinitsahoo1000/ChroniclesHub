@@ -98,3 +98,62 @@ exports.blogRouter.put("/update/:id", middleware_1.authMiddleware, upload.single
         res.status(500).json({ message: "Internal server error" });
     }
 }));
+exports.blogRouter.get("/bulk", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const blogs = yield prisma.blog.findMany({
+            orderBy: {
+                createdAt: "desc"
+            }
+        });
+        res.send(blogs);
+    }
+    catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+exports.blogRouter.delete("/delete/:id", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userID = req.userId;
+    const blogID = req.params.id;
+    try {
+        const blog = yield prisma.blog.findUnique({
+            where: {
+                id: blogID
+            }
+        });
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        if (blog.authorId !== userID) {
+            return res.status(403).json({ message: "Unauthorized" });
+        }
+        yield prisma.blog.delete({
+            where: {
+                id: blogID
+            }
+        });
+        res.send({ message: "Blog deleted successfully" });
+    }
+    catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+exports.blogRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const blogId = req.params.id;
+    try {
+        const blog = yield prisma.blog.findUnique({
+            where: {
+                id: blogId
+            }
+        });
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        res.send(blog);
+    }
+    catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
