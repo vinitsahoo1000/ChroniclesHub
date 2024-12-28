@@ -31,10 +31,10 @@ model User {
 
 model Follows {
   id  String @id @default(uuid())
-  following_id String?
-  follower_id String?
-  user_Following User? @relation(name: "Following", fields: [following_id], references: [id])
-  user_Follower User? @relation(name: "Follower", fields: [follower_id], references: [id])
+  following_id String
+  follower_id String
+  user_Following User @relation(name: "Following", fields: [following_id], references: [id])
+  user_Follower User @relation(name: "Follower", fields: [follower_id], references: [id])
 }
 
 

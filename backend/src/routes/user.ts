@@ -272,6 +272,89 @@ userRouter.put("/passwordUpdate",authMiddleware,async(req:Request,res:Response):
     }
 })
 
+userRouter.put("/follow/:userId",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const followerId = req.userId; //authenticated user
+    const {userId} = req.params;   //user to follow
+
+    try{
+        const userToFollow = await prisma.user.findFirst({
+            where:{
+                id: userId
+            }
+        })
+        if(!userToFollow){
+            return res.status(404).json({message:"User not found"})
+        }
+
+        const alreadyFollowing = await prisma.follows.findFirst({
+            where:{
+                follower_id:followerId,
+                following_id:userId
+            }
+        })
+
+        if(alreadyFollowing){
+            return res.status(400).json({message:"Already following this user"})
+        }
+
+        await prisma.follows.create({
+            data: {
+                follower_id: followerId!,
+                following_id: userId
+            }
+        })
+
+        return res.send({
+            msg: "Followed successfully"
+        })
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
+
+userRouter.put("/unfollow/:userId",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const followerId = req.userId; //authenticated user
+    const {userId} = req.params;  //user to unfollow
+
+    try{
+        const userToUnfollow = await prisma.user.findFirst({
+            where:{
+                id: userId
+            }
+        })
+
+        if(!userToUnfollow){
+            return res.status(404).json({message:"User not found"})
+        }
+
+        const alreadyFollowing = await prisma.follows.findFirst({
+            where:{
+                follower_id:followerId,
+                following_id:userId
+            }
+        })
+
+        if(!alreadyFollowing){
+            return res.status(400).json({message:"Not following this user"})
+        }
+
+        await prisma.follows.deleteMany({
+            where:{
+                follower_id: followerId,
+                following_id: userId
+            }
+        })
+
+        return res.send({
+            msg: "Unfollowed successfully"
+        })
+    }
+    catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
 
 userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
     const userId = req.userId;
