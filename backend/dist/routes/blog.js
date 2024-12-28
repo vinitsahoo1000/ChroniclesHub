@@ -103,6 +103,9 @@ exports.blogRouter.get("/bulk", (req, res) => __awaiter(void 0, void 0, void 0, 
         const blogs = yield prisma.blog.findMany({
             orderBy: {
                 createdAt: "desc"
+            },
+            include: {
+                likes: true,
             }
         });
         res.send(blogs);

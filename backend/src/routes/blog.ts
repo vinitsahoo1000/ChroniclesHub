@@ -101,6 +101,9 @@ blogRouter.get("/bulk",async(req:Request,res:Response):Promise<any>=>{
         const blogs = await prisma.blog.findMany({
             orderBy:{
                 createdAt:"desc"
+            },
+            include:{
+                likes:true,
             }
         })
 
