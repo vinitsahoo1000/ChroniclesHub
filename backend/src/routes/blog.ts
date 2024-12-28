@@ -111,6 +111,57 @@ blogRouter.get("/bulk",async(req:Request,res:Response):Promise<any>=>{
     }
 })
 
+blogRouter.put("/:blogId/like",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userId = req.userId;
+    const {blogId} = req.params;
+
+    try{
+        const blog = await prisma.blog.findFirst({
+            where:{
+                id: blogId
+            }
+        })
+        if(!blog){
+            return res.status(404).json({message:"Blog not found"})
+        }
+
+        const alreadyLiked = await prisma.blog.findFirst({
+            where:{
+                id: blogId,
+                likes:{
+                    some:{
+                        id:userId
+                    }
+                }
+            }
+        })
+
+        if(alreadyLiked){
+            return res.status(400).json({message:"Blog already liked"})
+        }
+
+        await prisma.blog.update({
+            where:{
+                id: blogId
+            },
+            data:{
+                likes:{
+                    connect:{
+                        id:userId
+                    }
+                }
+            }
+        })
+        return res.send({
+            msg: "Blog liked successfully"
+        })
+        
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
+
 blogRouter.delete("/delete/:id",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
     const userID = req.userId;
     const blogID = req.params.id;
