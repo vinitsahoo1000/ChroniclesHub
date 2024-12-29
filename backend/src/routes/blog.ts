@@ -165,6 +165,92 @@ blogRouter.put("/:blogId/like",authMiddleware,async(req:Request,res:Response):Pr
     }
 })
 
+blogRouter.put("/:blogId/unlike",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userId = req.userId;
+    const {blogId} = req.params;
+
+    try{
+        const blog = await prisma.blog.findFirst({
+            where:{
+                id: blogId
+            }
+        })
+
+        if(!blog){
+            return res.status(404).json({message:"Blog not found"})
+        }
+
+        const alreadyLiked = await prisma.blog.findFirst({
+            where:{
+                id: blogId,
+                likes:{
+                    some:{
+                        id:userId
+                    }
+                }
+            }
+        })
+
+        if(!alreadyLiked){
+            return res.status(400).json({message:"Blog not liked"})
+        }
+
+        await prisma.blog.update({
+            where:{
+                id: blogId
+            },
+            data:{
+                likes:{
+                    disconnect:{
+                        id:userId
+                    }
+                }
+            }
+        })
+        return res.send({
+            msg: "Blog unliked successfully"
+        })
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
+
+blogRouter.post("/:blogId/comment",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userId = req.userId;
+    const {blogId} = req.params;
+    const content = req.body.content;
+
+    try{    
+        const blog = await prisma.blog.findFirst({
+            where:{
+                id: blogId
+            }
+        })
+        if(!blog){
+            return res.status(404).json({message:"Blog not found"})
+        }
+
+        const comment = await prisma.comment.create({
+            data:{
+                content: content,
+                blogId: blogId,
+                authorId: userId!
+            }
+        })
+
+        return res.send({
+            msg: "Comment posted successfully",
+            comment: comment
+        })
+
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
+})
+
+
 blogRouter.delete("/delete/:id",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
     const userID = req.userId;
     const blogID = req.params.id;
@@ -203,6 +289,11 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
         const blog = await prisma.blog.findUnique({
             where:{
                 id:blogId
+            },
+            include:{
+                likes:true,
+                comments:true,
+                author:true
             }
         })
 

@@ -161,6 +161,82 @@ exports.blogRouter.put("/:blogId/like", middleware_1.authMiddleware, (req, res) 
         res.status(500).json({ message: "Internal server error" });
     }
 }));
+exports.blogRouter.put("/:blogId/unlike", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.userId;
+    const { blogId } = req.params;
+    try {
+        const blog = yield prisma.blog.findFirst({
+            where: {
+                id: blogId
+            }
+        });
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        const alreadyLiked = yield prisma.blog.findFirst({
+            where: {
+                id: blogId,
+                likes: {
+                    some: {
+                        id: userId
+                    }
+                }
+            }
+        });
+        if (!alreadyLiked) {
+            return res.status(400).json({ message: "Blog not liked" });
+        }
+        yield prisma.blog.update({
+            where: {
+                id: blogId
+            },
+            data: {
+                likes: {
+                    disconnect: {
+                        id: userId
+                    }
+                }
+            }
+        });
+        return res.send({
+            msg: "Blog unliked successfully"
+        });
+    }
+    catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
+exports.blogRouter.post("/:blogId/comment", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.userId;
+    const { blogId } = req.params;
+    const content = req.body.content;
+    try {
+        const blog = yield prisma.blog.findFirst({
+            where: {
+                id: blogId
+            }
+        });
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        const comment = yield prisma.comment.create({
+            data: {
+                content: content,
+                blogId: blogId,
+                authorId: userId
+            }
+        });
+        return res.send({
+            msg: "Comment posted successfully",
+            comment: comment
+        });
+    }
+    catch (e) {
+        console.error(e);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}));
 exports.blogRouter.delete("/delete/:id", middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userID = req.userId;
     const blogID = req.params.id;
@@ -194,6 +270,11 @@ exports.blogRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, f
         const blog = yield prisma.blog.findUnique({
             where: {
                 id: blogId
+            },
+            include: {
+                likes: true,
+                comments: true,
+                author: true
             }
         });
         if (!blog) {
