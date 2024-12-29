@@ -273,14 +273,44 @@ blogRouter.delete("/delete/:id",authMiddleware,async(req:Request,res:Response):P
                 id:blogID
             }
         })
-
         res.send({message:"Blog deleted successfully"})
     }
     catch(e){
         console.error(e);
         res.status(500).json({message:"Internal server error"})
     }
+})
 
+blogRouter.delete("/:blogId/comment/:commentId",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userId = req.userId;
+    const {blogId,commentId} = req.params;
+
+    try{
+        const comment = await prisma.comment.findFirst({
+            where:{
+                id:commentId,
+                blogId:blogId
+            }
+        })
+        if(!comment){
+            return res.status(404).json({message:"Comment not found"})
+        }
+
+        if(comment.authorId !== userId){
+            return res.status(403).json({message:"Unauthorized"})
+        }
+
+        await prisma.comment.delete({
+            where:{
+                id:commentId
+            }
+        })
+
+        res.send({message:"Comment deleted successfully"})
+    }catch(e){
+        console.error(e);
+        res.status(500).json({message:"Internal server error"})
+    }
 })
 
 blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
