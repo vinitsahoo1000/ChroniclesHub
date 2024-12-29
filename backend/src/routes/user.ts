@@ -379,3 +379,58 @@ userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise
         res.status(500).json({message:"Internal server error"})
     }
 })
+
+userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
+    const userID = req.userId;
+    const {username} = req.params;
+
+    try{
+        const user = await prisma.user.findFirst({
+            where:{
+                username:username
+            },
+            select:{
+                id:true,
+                email:true,
+                name:true,
+                username:true,
+                bio:true,
+                imageUrl:true
+            }
+        })
+
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+
+        const followers = await prisma.follows.count({
+            where:{
+                following_id:user.id
+            }
+        })
+
+        const following = await prisma.follows.count({
+            where:{
+                follower_id:user.id
+            }
+        })
+
+        const isFollowing = await prisma.follows.findFirst({
+            where:{
+                follower_id:userID,
+                following_id:user.id
+            }
+        })
+
+        return res.send({
+            message: "User profile fetched successfully",
+            user: user,
+            followers: followers,
+            following: following,
+            isFollowing: isFollowing ? true : false
+        })
+
+    }catch(e){
+        return res.status(500).json({message:"Internal server error"})
+    }
+})
