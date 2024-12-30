@@ -1,9 +1,14 @@
+import { Routes, Route } from "react-router-dom"
+import { Signup } from "./pages/Signup"
 
 
 function App() {
   return(
     <div>
-      ChroniclesHub
+      <Routes>
+        <Route path="/signup" element={<Signup/>} />
+        <Route path="/" element={<Signup/>} />
+      </Routes>
     </div>
   )
 }
