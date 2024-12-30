@@ -5,13 +5,13 @@ export const Quote = ()=>{
         <div className="flex justify-center">
             <div className="max-w-lg">
                 <div className="text-2xl font-bold">
-                    "The customer service I recieved was exceptional. The Support team went above and beyond to address my concerns."
+                    "Behind every great blog is a developer who believes in its purpose."
                 </div>
         <div className="max-w-md text-xl font-semibold mt-4">
-            Julies Winfield
+            Vinit Sahoo
         </div>
         <div className="max-w-md text-sm font-medium text-slate-400">
-            CEO, Acme Inc
+            Developer, ChroniclesHub
         </div>
         </div>
         </div>
