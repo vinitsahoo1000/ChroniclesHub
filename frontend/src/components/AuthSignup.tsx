@@ -24,7 +24,7 @@ export const AuthSignup = () => {
                 password
             });
             if(response.status === 200) {
-                alert(response.data.message);
+                alert(response.data.msg);
                 return;
             }
         } catch (error: any) {
