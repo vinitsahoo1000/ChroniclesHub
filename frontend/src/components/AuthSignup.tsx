@@ -29,11 +29,7 @@ export const AuthSignup = () => {
             }
         } catch (error: any) {
             if (error.response) {
-                if (error.response.status === 400 && error.response.data?.error) {
-                    alert(error.response.data.message);
-                } else {
-                    alert(error.response.data.message || "An error occurred during signup.");
-                }
+                alert(error.response.data.message);
             } else {
                 alert("There was an error signing up. Please try again later.");
             }
