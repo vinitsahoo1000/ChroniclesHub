@@ -1,11 +1,10 @@
 import { useState } from "react";
 
 interface PasswordBoxProps {
-    label: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const PasswordBox = ({label,onChange}:PasswordBoxProps) => {
+export const PasswordBox = ({onChange}:PasswordBoxProps) => {
     const [isPasswordVisible, setIsPasswordVisiblity] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -14,7 +13,7 @@ export const PasswordBox = ({label,onChange}:PasswordBoxProps) => {
 
     return(
         <div className="mt-4">
-            <label className="text-sm font-medium text-gray-700 ml-2">{label}</label>
+            <label className="text-sm font-medium text-gray-700 ml-2">Password</label>
             <div className="relative w-full max-w-sm">
             <input
                 id="toggle-password"

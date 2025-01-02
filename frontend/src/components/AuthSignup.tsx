@@ -50,7 +50,7 @@ export const AuthSignup = () => {
                         <InputBox label="Full Name" onChange={(e) => {setName(e.target.value)}} placeholder="Full Name"/>
                         <InputBox label="Username" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username"/>
                         <InputBox label="Email" onChange={(e) => {setEmail(e.target.value)}} placeholder="Email"/>
-                        <PasswordBox label="Password" onChange={(e) =>{setPassword(e.target.value)}}/>
+                        <PasswordBox onChange={(e) =>{setPassword(e.target.value)}}/>
                     </div>
                     <div className="mt-4">
                         <BottomAuthPrompt isSignup={true}/>
