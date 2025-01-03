@@ -104,6 +104,7 @@ blogRouter.get("/bulk",async(req:Request,res:Response):Promise<any>=>{
             },
             include:{
                 likes:true,
+                comments:true,
             }
         })
 
