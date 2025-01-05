@@ -7,7 +7,6 @@ import { PasswordBox } from "./PasswordBox";
 import { SubHeading } from "./SubHeading";
 import axios from "axios";
 import { Backend_URL } from "../config";
-import { useNavigate } from "react-router-dom";
 
 export const AuthSignup = () => {
     const [name, setName] = useState('');
@@ -17,7 +16,6 @@ export const AuthSignup = () => {
 
 
     const handleSignup = async () => {
-        const navigate = useNavigate();
         try {    
             const response = await axios.post(`${Backend_URL}/user/signup/`, {
                 name,
@@ -27,7 +25,7 @@ export const AuthSignup = () => {
             });
             if(response.status === 200) {
                 alert(response.data.msg);
-                navigate("/blogs");
+                window.location.href = "/blogs";
                 return;
             }
         } catch (error: any) {

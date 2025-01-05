@@ -7,7 +7,6 @@ import { PasswordBox } from "./PasswordBox"
 import { SubHeading } from "./SubHeading"
 import axios from "axios"
 import { Backend_URL } from "../config"
-import { useNavigate } from "react-router-dom"
 
 
 export const AuthLogin = () =>{
@@ -16,7 +15,6 @@ export const AuthLogin = () =>{
 
     const handleLogin = async() =>{
         const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInput);
-        const navigate = useNavigate();
         try{
             const response = await axios.post(`${Backend_URL}/user/login`,{
                 [isEmail? "email":"username"]: userInput,
@@ -25,7 +23,7 @@ export const AuthLogin = () =>{
             if(response.status === 200){
                 alert(response.data.msg)
                 localStorage.setItem("token",`Bearer ${response.data.token}`)
-                navigate("/blogs");
+                window.location.href = "/blogs";
                 return;
             }
         }catch(error:any){
