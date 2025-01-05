@@ -363,6 +363,14 @@ userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise
         const user = await prisma.user.findFirst({
             where:{
                 id:userId
+            },
+            select:{
+                id: true,
+                name: true,
+                bio: true,
+                imageUrl: true,
+                email: true,
+                username: true
             }
         })
 
