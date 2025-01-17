@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserContext";
 
 export const Appbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const userContext = useContext(UserContext); 
+    
+    const user = userContext?.user;
     // Toggle the menu
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -58,7 +61,7 @@ export const Appbar = () => {
                     </a>
                     <div className="flex items-center space-x-3">
                         <img
-                            src="https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"
+                            src={user?.imageUrl ||"https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"}
                             alt="Profile"
                             className="w-8 h-8 rounded-full border-2 border-white"
                         />
@@ -93,11 +96,11 @@ export const Appbar = () => {
                     {/* Profile Section */}
                     <div className="flex items-center space-x-3">
                         <img
-                            src="https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"
+                            src={user?.imageUrl ||"https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"}
                             alt="Profile"
                             className="w-10 h-10 rounded-full border-2 border-white"
                         />
-                        <span className="text-lg font-medium">Vinit</span>
+                        <span className="text-lg font-medium">{user?.name || " "}</span>
                     </div>
 
                     {/* Menu Links */}
