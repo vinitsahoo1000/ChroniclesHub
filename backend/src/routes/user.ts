@@ -370,7 +370,8 @@ userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise
                 bio: true,
                 imageUrl: true,
                 email: true,
-                username: true
+                username: true,
+                blog:true
             }
         })
 
