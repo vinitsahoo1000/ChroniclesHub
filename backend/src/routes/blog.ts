@@ -333,7 +333,6 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
                     username: true,
                     bio: true,
                     imageUrl: true,
-                      // Add any other fields you want to include, but exclude the `password` field.
                     },
                 },
             }

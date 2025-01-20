@@ -371,7 +371,8 @@ userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise
                 imageUrl: true,
                 email: true,
                 username: true,
-                blog:true
+                blog:true,
+                liked: true
             }
         })
 
