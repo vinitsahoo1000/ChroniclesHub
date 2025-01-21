@@ -17,6 +17,7 @@ type User ={
     username: string;
     imageUrl: string | null;
     posts: Post[] | null;
+    liked: Post[] | null;
 }
 
 type UserContextType = {

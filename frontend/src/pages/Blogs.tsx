@@ -52,6 +52,7 @@ export const Blogs = () => {
             </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs.map((blog: any) => (
+                <a href={`/blog/${blog.id}`}>
                 <BlogCard 
                     key={blog.id} 
                     title={blog.title} 
@@ -61,7 +62,8 @@ export const Blogs = () => {
                     profile={blog.author.profileUrl}
                     likes={blog.likes.length}
                     comments={blog.comments.length}
-                />
+                    />
+                    </a>
             ))}
         </div>
         </div>

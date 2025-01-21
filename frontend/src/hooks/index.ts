@@ -10,12 +10,39 @@ export interface BlogInterface {
     "author":{
         "id":string,
         "name":string,
-        "profileUrl": string
+        "imageUrl": string
     }
     "createdAt": string,
-    "imageUrl"?:string
+    "imageUrl"?:string,
+    "likes": Array<String>,
+    "comments": Array<String>,
+    "publishedDate": string
 }
 
+export const useFetchBlog = ({id}:{id:string}) => {
+    const [loading,setLoading] = useState(true);
+    const [blog,setBlog] = useState<BlogInterface[]>([]);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        axios.get(`${Backend_URL}/blog/${id}`,{
+            headers:{
+                Authorization: token
+            }
+        })
+        .then(response=>{
+            setBlog(response.data);
+            setLoading(false)
+        })
+    },[id])
+
+    return{
+        loading,
+        blog
+    }
+
+}
 
 export const useFetchAllBlogs = () => {
     const [loading,setLoading] = useState(true)
