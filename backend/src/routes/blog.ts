@@ -241,7 +241,7 @@ blogRouter.post("/:blogId/comment",authMiddleware,async(req:Request,res:Response
             }
         })
 
-        return res.send({
+        return res.status(200).send({
             msg: "Comment posted successfully",
             comment: comment
         })
@@ -334,7 +334,7 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
                             }
                         }
                     }
-                },
+                },  
                 author: {
                     select: {
                     id: true,
