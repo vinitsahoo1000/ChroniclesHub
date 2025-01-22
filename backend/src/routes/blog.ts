@@ -330,7 +330,8 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
                             select:{
                                 id: true,
                                 name: true,
-                                username: true
+                                username: true,
+                                imageUrl: true
                             }
                         }
                     }
