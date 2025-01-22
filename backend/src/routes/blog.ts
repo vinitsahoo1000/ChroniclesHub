@@ -324,7 +324,17 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
             },
             include:{
                 likes:true,
-                comments:true,
+                comments:{
+                    include:{
+                        author:{
+                            select:{
+                                id: true,
+                                name: true,
+                                username: true
+                            }
+                        }
+                    }
+                },
                 author: {
                     select: {
                     id: true,
@@ -332,7 +342,7 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
                     email: true,
                     username: true,
                     bio: true,
-                    imageUrl: true,
+                    imageUrl: true
                     },
                 },
             }
