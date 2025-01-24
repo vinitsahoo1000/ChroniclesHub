@@ -315,6 +315,38 @@ blogRouter.delete("/:blogId/comment/:commentId",authMiddleware,async(req:Request
     }
 })
 
+
+blogRouter.get("/:blogId/comments",async(req:Request,res:Response):Promise<any>=>{
+    const blogId = req.params.blogId;
+    try{
+        const comments = await prisma.comment.findMany({
+            where:{
+                blogId: blogId
+            },
+            include:{
+                author:{
+                    select:{
+                        id: true,
+                        name:true,
+                        imageUrl:true,
+                        username:true
+                    }
+                }
+            }
+        })
+
+        if (!comments || comments.length === 0) {
+            return res.status(404).json({ message: "No Comments found" });
+        }
+
+        res.status(200).send(comments);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({error:"Internal server error"})
+    }
+})
+
+
 blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
     const blogId = req.params.id
     try{
@@ -324,18 +356,6 @@ blogRouter.get("/:id",async(req:Request,res:Response):Promise<any>=>{
             },
             include:{
                 likes:true,
-                comments:{
-                    include:{
-                        author:{
-                            select:{
-                                id: true,
-                                name: true,
-                                username: true,
-                                imageUrl: true
-                            }
-                        }
-                    }
-                },  
                 author: {
                     select: {
                     id: true,
