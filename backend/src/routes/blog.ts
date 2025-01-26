@@ -336,7 +336,7 @@ blogRouter.get("/:blogId/comments",async(req:Request,res:Response):Promise<any>=
         })
 
         if (!comments || comments.length === 0) {
-            return res.status(404).json({ message: "No Comments found" });
+            return res.status(200).json([]);
         }
 
         res.status(200).send(comments);
