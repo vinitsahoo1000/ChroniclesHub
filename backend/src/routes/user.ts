@@ -272,6 +272,7 @@ userRouter.put("/passwordUpdate",authMiddleware,async(req:Request,res:Response):
     }
 })
 
+
 userRouter.put("/follow/:userId",authMiddleware,async(req:Request,res:Response):Promise<any>=>{
     const followerId = req.userId; //authenticated user
     const {userId} = req.params;   //user to follow
@@ -372,7 +373,9 @@ userRouter.get("/details",authMiddleware,async(req:Request,res:Response):Promise
                 email: true,
                 username: true,
                 blog:true,
-                liked: true
+                liked: true,
+                follower: true,
+                following: true
             }
         })
 
