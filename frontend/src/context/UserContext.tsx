@@ -2,11 +2,27 @@ import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { Backend_URL } from "../config";
 
+
+export type Comments ={
+    id: string;
+    content: string;
+    createdAt: string;
+    author: User;
+    blogId: string;
+}
+
 type Post ={
     id: string;
     title: string;
     content: string;
     publishedDate: string;
+    comments: Comments[] | null;
+}
+
+interface Follower {
+    follower_id: string;
+    following_id: string;
+    id: string;
 }
 
 type User ={
@@ -18,6 +34,8 @@ type User ={
     imageUrl: string | null;
     posts: Post[] | null;
     liked: Post[] | null;
+    follower: Follower[];
+    following: Follower[];
 }
 
 type UserContextType = {

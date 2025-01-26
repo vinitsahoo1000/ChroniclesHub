@@ -25,6 +25,7 @@ export const AuthSignup = () => {
             });
             if(response.status === 200) {
                 alert(response.data.msg);
+                localStorage.setItem("token",`Bearer ${response.data.token}`)
                 window.location.href = "/blogs";
                 return;
             }

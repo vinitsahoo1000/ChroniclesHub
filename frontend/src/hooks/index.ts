@@ -15,9 +15,29 @@ export interface BlogInterface {
     "createdAt": string,
     "imageUrl"?:string,
     "likes": Array<String>,
-    "comments": Array<String>,
+    "comments": [{
+        content: string;
+        createdAt: string;
+        author: {
+        name: string;
+        imageUrl: string | null;
+        };
+    }],
     "publishedDate": string
 }
+
+export interface AllCommentsProps {
+    id: string;
+    content: string;
+    createdAt: string;
+    author:{
+        id: string;
+        name: string;
+        username: string;
+        imageUrl: string | null;
+    }
+}
+
 
 export const useFetchBlog = ({id}:{id:string}) => {
     const [loading,setLoading] = useState(true);
@@ -68,3 +88,33 @@ export const useFetchAllBlogs = () => {
         loading,blogs
     }
 };
+
+export const useFetchAllComments = ({blogId}:{blogId:string}) => {
+    const [loading,setLoading] = useState(true);
+    const [comments,setComments] = useState<AllCommentsProps[]>([]);
+
+
+        const fetchComments = async ()=>{
+            try{
+                const response = await axios.get(`${Backend_URL}/blog/${blogId}/comments`)
+                if (response.status === 200 && response.data.length === 0) {
+                    setComments([]);
+                } else {
+                    setComments(response.data);
+                }
+            }catch(error){
+                console.log("Error fetching comments:", error);
+                setComments([]);
+            }finally {
+                setLoading(false);
+            }   
+        }
+
+        useEffect(() =>{
+            fetchComments();
+        },[blogId])
+
+    return{
+        loading,comments,fetchComments,
+    }
+}

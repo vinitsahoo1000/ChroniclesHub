@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { GetBlog } from "../components/GetBlog"
 import { useFetchBlog } from "../hooks";
+import { BlogSkeleton } from "../components/loading/BlogSkeleton";
 
 
 
@@ -13,9 +14,7 @@ export const BlogPost = ()=>{
 
     if(loading){
         return(
-            <div>
-                Loading....
-            </div>
+            <BlogSkeleton/>
         )
     }
 
