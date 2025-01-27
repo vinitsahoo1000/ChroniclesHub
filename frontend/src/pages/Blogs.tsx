@@ -31,7 +31,7 @@ export const Blogs = () => {
                     content={blog.content} 
                     date={(blog.createdAt).split('T')[0]} 
                     author={blog.author.name} 
-                    profile={blog.author.profileUrl}
+                    profile={blog.author.imageUrl}
                     likes={blog.likes.length}
                     comments={blog.comments.length}
                     />

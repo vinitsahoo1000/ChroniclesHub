@@ -15,7 +15,7 @@ export const likeBlog = async (blogId:string)=>{
             }
         })
         if(response.status === 200){
-            toast.success(response.data.message)
+            toast.success(response.data.msg)
             return response;
         }
     }catch(error:any){

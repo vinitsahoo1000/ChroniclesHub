@@ -7,6 +7,7 @@ import { PasswordBox } from "./PasswordBox";
 import { SubHeading } from "./SubHeading";
 import axios from "axios";
 import { Backend_URL } from "../config";
+import { toast } from "react-toastify";
 
 export const AuthSignup = () => {
     const [name, setName] = useState('');
@@ -24,16 +25,16 @@ export const AuthSignup = () => {
                 password
             });
             if(response.status === 200) {
-                alert(response.data.msg);
+                toast.success(response.data.msg);
                 localStorage.setItem("token",`Bearer ${response.data.token}`)
                 window.location.href = "/blogs";
                 return;
             }
         } catch (error: any) {
             if (error.response) {
-                alert(error.response.data.message);
+                toast.error(error.response.data.message);
             } else {
-                alert("There was an error signing up. Please try again later.");
+                toast.error("There was an error signing up. Please try again later.");
             }
         }
     }

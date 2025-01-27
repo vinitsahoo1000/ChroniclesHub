@@ -59,8 +59,8 @@ export const GetBlog = ({blog}:{blog:BlogInterface}) =>{
             <div className="flex justify-center pt-7">
                 {blog.imageUrl?<img src={blog.imageUrl} className="w-1/2 max-w-xl rounded-lg shadow-lg" alt={blog.title}/>: <div></div>}
             </div>
-            <div className="text-xl text-center pt-7">
-                <div className="prose prose-lg max-w-none whitespace-pre-wrap font-semibold text-slate-500">
+            <div className="text-xl pt-7">
+                <div className="prose prose-lg max-w-none whitespace-pre-wrap font-semibold text-black">
                     {blog.content}
                 </div>
             </div>
