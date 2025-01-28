@@ -26,9 +26,9 @@ export const UserProfile = () => {
             {user && <ProfileCard user={user} />}
         </div>
         <div className="p-10">
-        {loading?<div className="animate-pulse"> </div> :<div className="text-2xl font-bold text-gray-800 mb-4">Blogs:</div>}
+        {loading?<div> </div> :<div className="text-2xl font-bold text-gray-800 mb-4">Blogs:</div>}
         <div className="overflow-y-scroll h-[calc(100vh-150px)]">
-            {user?.blog?.map((singleBlog) => (
+            {user?.blog?.length? user?.blog?.map((singleBlog) => (
                 <a href={`/blog/${singleBlog.id}`} key={singleBlog.id}>
                     <UserProfileBlogs 
                         title={singleBlog.title} 
@@ -36,7 +36,7 @@ export const UserProfile = () => {
                         publishedDate={singleBlog.createdAt} 
                     />
                 </a>
-            ))}
+            )):loading?<div> </div> :<div className="text-2xl font-semibold text-gray-800 mb-4">No Blogs Posted</div>}
         </div>
         </div>
         </div>
