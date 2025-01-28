@@ -418,18 +418,9 @@ userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Respons
             return res.status(404).json({message:"User not found"})
         }
 
-
-        const isFollowing = await prisma.follows.findFirst({
-            where:{
-                follower_id:userID,
-                following_id:user.id
-            }
-        })
-
         return res.send({
             message: "User profile fetched successfully",
-            user: user,
-            isFollowing: isFollowing ? true : false
+            user: user
         })
 
     }catch(e){
