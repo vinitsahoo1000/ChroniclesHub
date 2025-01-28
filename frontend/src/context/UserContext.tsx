@@ -15,7 +15,7 @@ type Post ={
     id: string;
     title: string;
     content: string;
-    publishedDate: string;
+    createdAt: string;
     comments: Comments[] | null;
 }
 
@@ -25,14 +25,14 @@ interface Follower {
     id: string;
 }
 
-type User ={
+export type User ={
     bio: string;
     id: string;
     name: string;
     email: string;
     username: string;
     imageUrl: string | null;
-    posts: Post[] | null;
+    blog: Post[] | null;
     liked: Post[] | null;
     follower: Follower[];
     following: Follower[];

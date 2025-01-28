@@ -24,7 +24,9 @@ export const AuthLogin = () =>{
             if(response.status === 200){
                 toast.success(response.data.msg)
                 localStorage.setItem("token",`Bearer ${response.data.token}`)
-                window.location.href = "/blogs";
+                setTimeout(() => {
+                    window.location.href = '/blogs';
+                }, 2000);
                 return;
             }
         }catch(error:any){

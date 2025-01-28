@@ -118,3 +118,4 @@ export const useFetchAllComments = ({blogId}:{blogId:string}) => {
         loading,comments,fetchComments,
     }
 }
+
