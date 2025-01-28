@@ -408,7 +408,9 @@ userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Respons
                 name:true,
                 username:true,
                 bio:true,
-                imageUrl:true
+                imageUrl:true,
+                follower:true,
+                following:true
             }
         })
 
@@ -416,17 +418,6 @@ userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Respons
             return res.status(404).json({message:"User not found"})
         }
 
-        const followers = await prisma.follows.count({
-            where:{
-                following_id:user.id
-            }
-        })
-
-        const following = await prisma.follows.count({
-            where:{
-                follower_id:user.id
-            }
-        })
 
         const isFollowing = await prisma.follows.findFirst({
             where:{
@@ -438,8 +429,6 @@ userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Respons
         return res.send({
             message: "User profile fetched successfully",
             user: user,
-            followers: followers,
-            following: following,
             isFollowing: isFollowing ? true : false
         })
 
