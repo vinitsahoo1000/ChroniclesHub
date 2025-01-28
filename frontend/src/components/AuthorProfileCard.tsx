@@ -44,7 +44,7 @@ export const AuthorProfileCard = ({ blog }: AuthorProfileCardProps) =>{
                             <img src={blog.author.imageUrl} className="w-12 h-12 rounded-full shadow-lg" alt={blog.author.name} />
                             <div className="flex flex-col">
                                 <div className="flex items-center space-x-2">
-                                    <span className="text-lg font-semibold text-gray-800">{blog.author.name}</span>
+                                    <a href={blog.author.id === user?.id? '/user/profile':`/author/profile/${blog.author.username}`}><span className="text-lg font-semibold text-gray-800">{blog.author.name}</span></a>
                                     <button onClick={handleFollow} className={`${blog.author.id === user?.id ?`invisible`:`visible`} text-sm text-blue-500 hover:text-blue-700 font-medium`}>
                                         {followed ?"following":"follow"}
                                     </button>

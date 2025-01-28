@@ -5,6 +5,7 @@ import { Blogs } from "./pages/Blogs"
 import { BlogPost } from "./pages/BlogPost"
 import { PostBlog } from "./pages/PostBlog"
 import { UserProfile } from "./pages/UserProfile"
+import { AuthorProfile } from "./pages/AuthorProfile"
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/blog/:id" element={<BlogPost/>} />
         <Route path="/post" element={<PostBlog/>} />
         <Route path="/user/profile" element={<UserProfile/>} />
+        <Route path="/author/profile/:username" element={<AuthorProfile/>} />
       </Routes>
     </div>
   )

@@ -3,6 +3,8 @@ import { ProfileCard } from "../components/ProfileCard"
 import { UserContext } from "../context/UserContext";
 import { Appbar } from "../components/Appbar";
 import { UserProfileBlogs } from "../components/UserProfileBlogs";
+import { ProfileBlogSkeleton } from "../components/loading/ProfileBlogSkeleton";
+import { ProfileCardSkeleton } from "../components/loading/ProfileCardSkeleton";
 
 
 export const UserProfile = () => {
@@ -18,12 +20,28 @@ export const UserProfile = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    if(loading){
+            const skeletonCount = 5;
+    
+            return(
+                <div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 h-screen overflow-hidden">
+                        <ProfileCardSkeleton/>
+                        <div>
+                        {Array.from({ length: skeletonCount }).map((_, index) => ( < ProfileBlogSkeleton key={index}/>))}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    
+
     return(
         <div className="overflow-hidden h-screen">
             <Appbar/>
         <div className="grid grid-cols-1 lg:grid-cols-2 h-screen overflow-hidden">
-        <div className="flex flex-row justify-center pt-8">
-            {user && <ProfileCard user={user} />}
+        <div>
+            {user && <ProfileCard user={user} isAuthor={false}/>}
         </div>
         <div className="p-10">
         {loading?<div> </div> :<div className="text-2xl font-bold text-gray-800 mb-4">Blogs:</div>}

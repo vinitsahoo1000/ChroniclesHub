@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Backend_URL } from "../config";
+import { User } from "../context/UserContext";
 
 
 export interface BlogInterface {
@@ -10,6 +11,7 @@ export interface BlogInterface {
     "author":{
         "id":string,
         "name":string,
+        "username":string,
         "imageUrl": string
     }
     "createdAt": string,
@@ -119,3 +121,31 @@ export const useFetchAllComments = ({blogId}:{blogId:string}) => {
     }
 }
 
+
+export const useFetchAuthor = ({username}:{username:string}) =>{
+    const [loading,setLoading] = useState(true);
+    const [author,setAuthor] = useState<User | null>(null);
+
+    useEffect(() =>{
+        const fetchData = async () =>{
+            const token = localStorage.getItem("token");
+            try{
+                const response = await axios.get(`${Backend_URL}/user/profile/${username}`,{
+                    headers:{
+                        Authorization: token
+                    }
+                });
+                setAuthor(response.data.user);
+                setLoading(false);
+            }catch(error){
+                console.error("Error fetching author:", error);
+                setLoading(false);
+            }
+        }
+        fetchData();
+    },[username])
+
+    return{
+        loading,author
+    }
+}

@@ -19,7 +19,7 @@ type Post ={
     comments: Comments[] | null;
 }
 
-interface Follower {
+export interface Follower {
     follower_id: string;
     following_id: string;
     id: string;
@@ -62,7 +62,7 @@ export const UserProvider : React.FC<{children: React.ReactNode}> = ({children})
         })
 
         if(response.data.user){
-            setUser(response.data.user)
+            setUser(response.data.user);
         }
         else{
             console.error("Invalid response from server!!");
