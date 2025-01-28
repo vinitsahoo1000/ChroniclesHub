@@ -410,7 +410,8 @@ userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Respons
                 bio:true,
                 imageUrl:true,
                 follower:true,
-                following:true
+                following:true,
+                blog: true
             }
         })
 
