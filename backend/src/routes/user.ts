@@ -408,9 +408,7 @@ userRouter.get("/profile/:username",authMiddleware,async(req:Request,res:Respons
                 name:true,
                 username:true,
                 bio:true,
-                imageUrl:true,
-                follower:true,
-                following:true
+                imageUrl:true
             }
         })
 
