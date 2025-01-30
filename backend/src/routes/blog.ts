@@ -69,7 +69,8 @@ blogRouter.put("/update/:id",authMiddleware,upload.single('image'),async(req:Req
 
         const blog = await prisma.blog.update({
             where:{
-                id:blogId
+                id:blogId,
+                authorId: userId
             },
             data:{
                 title:payload.title,
