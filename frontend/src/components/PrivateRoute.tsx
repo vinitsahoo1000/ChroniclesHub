@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { Backend_URL } from "../config";
+
 
 const PrivateRoute = () => {
     const token = localStorage.getItem("token");
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+    const Backend_URL = import.meta.env.VITE_BACKEND_URL; 
 
     useEffect(() => {
     const verify = async () => {

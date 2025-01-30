@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
-import { Backend_URL } from "../config";
 
+
+const Backend_URL = import.meta.env.VITE_BACKEND_URL; 
 
 export type Comments ={
     id: string;

@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import { Backend_URL } from "../config";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { TitleInputBox } from "./common/TitleInputBox";
@@ -11,6 +10,8 @@ export const BlogPostEditor = () => {
     const [title,setTitle] = useState("");
     const [content,setContent] = useState("");
     const [file,setFile] = useState<File | null>(null)
+
+    const Backend_URL = import.meta.env.VITE_BACKEND_URL; 
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>): void {
         const file = e.target.files?.[0];

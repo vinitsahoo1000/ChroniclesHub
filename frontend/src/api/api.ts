@@ -1,9 +1,9 @@
 import axios from "axios"
-import { Backend_URL } from "../config"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { User } from "../context/UserContext";
 
+const Backend_URL = import.meta.env.VITE_BACKEND_URL;
 
 export interface UserUpdate {
     name?: string;

@@ -21,7 +21,7 @@ export const BlogEditor = () => {
         title: "",
         content: ""
     })
-
+    
     useEffect(()=>{
         setblogEdit({
             ...blogEdit,

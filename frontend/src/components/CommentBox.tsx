@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react"
-import { Backend_URL } from "../config";
 import { toast } from "react-toastify";
 
 
@@ -15,6 +14,8 @@ export const CommentBox = ({blogId,authorId,fetchComments}:CommentBoxProps)=>{
     const [content,setContent] = useState("");
     const [loading,setLoading] = useState(false);
     
+    const Backend_URL = import.meta.env.VITE_BACKEND_URL; 
+
     const postComment = async(e: React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
         const token = localStorage.getItem("token");
