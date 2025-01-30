@@ -28,6 +28,14 @@ export const BlogPost = ()=>{
         )
     }
 
+    if(!blog){
+        return(
+            <div>
+                <p>Blog not found</p>
+            </div>
+        )
+    }
+
     return(
         <div>
             <GetBlog blog={blog}/>

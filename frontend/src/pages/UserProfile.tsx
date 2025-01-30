@@ -14,11 +14,10 @@ export const UserProfile = () => {
     const user = userContext?.user;
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        if(user){
             setLoading(false);
-        }, 2500); 
-        return () => clearTimeout(timer);
-    }, []);
+        }
+    }, [user]);
 
     if(loading){
             const skeletonCount = 5;
@@ -27,7 +26,7 @@ export const UserProfile = () => {
                 <div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen overflow-hidden">
                         <ProfileCardSkeleton/>
-                        <div>
+                        <div className="p-10 hidden md:block">
                         {Array.from({ length: skeletonCount }).map((_, index) => ( < ProfileBlogSkeleton key={index}/>))}
                         </div>
                     </div>
@@ -43,12 +42,14 @@ export const UserProfile = () => {
         <div>
             {user && <ProfileCard user={user} isAuthor={false}/>}
         </div>
-        <div className="p-10">
+        <div className="p-10 hidden md:block">
         {loading?<div> </div> :<div className="text-2xl font-bold text-gray-800 mb-4">Blogs:</div>}
         <div className="overflow-y-scroll h-[calc(100vh-150px)]">
             {user?.blog?.length? user?.blog?.map((singleBlog) => (
                 <a href={`/blog/${singleBlog.id}`} key={singleBlog.id}>
                     <UserProfileBlogs 
+                        isUser={true}
+                        id={singleBlog.id}
                         title={singleBlog.title} 
                         content={singleBlog.content} 
                         publishedDate={singleBlog.createdAt} 

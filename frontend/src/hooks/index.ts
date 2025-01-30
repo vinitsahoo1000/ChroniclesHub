@@ -28,6 +28,11 @@ export interface BlogInterface {
     "publishedDate": string
 }
 
+interface FetchBlogResponse {
+    loading: boolean;
+    blog: BlogInterface | null;
+}
+
 export interface AllCommentsProps {
     id: string;
     content: string;
@@ -41,7 +46,7 @@ export interface AllCommentsProps {
 }
 
 
-export const useFetchBlog = ({id}:{id:string}) => {
+export const useFetchBlog = ({id}:{id:string}): FetchBlogResponse => {
     const [loading,setLoading] = useState(true);
     const [blog,setBlog] = useState<BlogInterface[]>([]);
 

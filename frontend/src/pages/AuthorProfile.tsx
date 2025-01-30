@@ -1,6 +1,5 @@
 import { Appbar } from "../components/Appbar"
 import { GetAuthorProfile } from "../components/GetAuthorProfile"
-import { UserProfileBlogs } from "../components/UserProfileBlogs"
 
 
 export const AuthorProfile = () => {

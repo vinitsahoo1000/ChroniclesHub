@@ -74,7 +74,7 @@ export const ProfileCard = ({ user,isAuthor }: { user: User,isAuthor:boolean }) 
             {isAuthor? <button onClick={handleFollow} className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium py-2 px-6 rounded-lg shadow-md transition-all duration-300">
                 {followed?"Following":"Follow"}
             </button>
-            :<button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium py-2 px-6 rounded-lg shadow-md transition-all duration-300">
+            :<button onClick={() => {window.location.href = "/user/profileEditor"}} className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium py-2 px-6 rounded-lg shadow-md transition-all duration-300">
                 Edit Profile
             </button>}
         </div>

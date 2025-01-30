@@ -60,11 +60,13 @@ export const Appbar = () => {
                         Post
                     </a>
                     <div className="flex items-center space-x-3">
+                        <a href="/user/profile">
                         <img
                             src={user?.imageUrl ||"https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"}
                             alt="Profile"
                             className="w-8 h-8 rounded-full border-2 border-white"
                         />
+                        </a>
                         <button
                             onClick={Logout}
                             className="text-white hover:text-gray-300"

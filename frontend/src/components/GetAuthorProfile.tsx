@@ -37,6 +37,7 @@ export const GetAuthorProfile = () => {
             {author?.blog?.length? author?.blog?.map((singleBlog) => (
                 <a href={`/blog/${singleBlog.id}`} key={singleBlog.id}>
                     <UserProfileBlogs 
+                        isUser={false}
                         title={singleBlog.title} 
                         content={singleBlog.content} 
                         publishedDate={singleBlog.createdAt} 

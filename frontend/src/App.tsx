@@ -6,6 +6,8 @@ import { BlogPost } from "./pages/BlogPost"
 import { PostBlog } from "./pages/PostBlog"
 import { UserProfile } from "./pages/UserProfile"
 import { AuthorProfile } from "./pages/AuthorProfile"
+import { EditProfile } from "./pages/EditProfile"
+import { EditBlog } from "./pages/EditBlog"
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/post" element={<PostBlog/>} />
         <Route path="/user/profile" element={<UserProfile/>} />
         <Route path="/author/profile/:username" element={<AuthorProfile/>} />
+        <Route path="/user/profileEditor" element={<EditProfile/>} />
+        <Route path="/blog/editor/:id" element={<EditBlog/>} />
       </Routes>
     </div>
   )
