@@ -59,7 +59,7 @@ export const useFetchBlog = ({id}:{id:string}): FetchBlogResponse => {
             }
         })
         .then(response=>{
-            setBlog(response.data.blog);
+            setBlog(response.data);
             setLoading(false)
         })
     },[id])
