@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { BottomAuthPrompt } from "./common/BottomAuthPrompt"
 import { Button } from "./common/Button"
 import { Heading } from "./common/Heading"
