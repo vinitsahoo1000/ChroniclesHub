@@ -168,6 +168,9 @@ export const updateUser = async({user,Currentuser}:{Currentuser:User,user:UserUp
         })  
         if(response.status === 200){
             toast.success(response.data.message)
+            setTimeout(() =>{
+                window.location.href ="/user/profile"
+            },1500)
         }
         if(response.status === 400){
             toast.info(response.data.message)
@@ -201,6 +204,9 @@ export const updatePassword = async (password: string) => {
 
         if (response.status === 200) {
             toast.success("Password updated successfully");
+            setTimeout(() =>{
+                window.location.href ="/user/profile"
+            },1500)
         }
         if (response.status === 400) {
             toast.info(response.data.message);
