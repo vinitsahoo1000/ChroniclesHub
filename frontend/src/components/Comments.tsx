@@ -26,6 +26,7 @@ export const Comments = ({id ,content, createdAt, author,fetchComments}:Comments
             <article className="p-6 text-base bg-gray-100 rounded-lg">
                 <footer className="flex justify-between items-center mb-2">
                     <div className="flex items-center">
+                        <a href={`/author/profile/${author.username}`}>
                         <p className="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
                             <img
                                 className="mr-2 w-6 h-6 rounded-full"
@@ -34,9 +35,10 @@ export const Comments = ({id ,content, createdAt, author,fetchComments}:Comments
                                     "https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"
                                 }
                                 alt="Author profile"
-                            />
+                                />
                             {author.name}
                         </p>
+                        </a>
                         <p className="text-sm text-gray-600">
                             <time dateTime={createdAt}>{createdAt.split("T")[0]}</time>
                         </p>
