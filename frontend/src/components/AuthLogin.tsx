@@ -6,13 +6,14 @@ import { InputBox } from "./common/InputBox"
 import { PasswordBox } from "./common/PasswordBox"
 import { SubHeading } from "./common/SubHeading"
 import axios from "axios"
-import { Backend_URL } from "../config"
 import { toast } from "react-toastify"
 
 
 export const AuthLogin = () =>{
     const [userInput,setUserInput] = useState("");
     const [password,setPassword] = useState("");
+    
+    const Backend_URL = import.meta.env.VITE_BACKEND_URL; 
 
 
     const handleLogin = async() =>{
