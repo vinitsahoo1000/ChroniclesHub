@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import { Backend_URL } from "../config";
 import { User } from "../context/UserContext";
 
 const Backend_URL = import.meta.env.VITE_BACKEND_URL;
