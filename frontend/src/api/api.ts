@@ -247,3 +247,50 @@ export const updateBlog = async ({blogEdit,id}:{blogEdit:BlogEditProps | FormDat
         toast.error(error.response?.data?.message || "Error updating blog");
     }
 }
+
+
+export const deleteBlog = async (id:string) =>{
+    const token = localStorage.getItem("token");
+
+    try{
+        const response = await axios.delete(`${Backend_URL}/blog/delete/${id}`,{
+            headers:{
+                Authorization: token
+            }
+        })
+        if(response.status === 200){
+            toast.success(response.data.message)
+        }
+        return response
+    }catch(error: any){
+        if(error.response.data){
+            toast.error(error.response.data.message)
+        }
+    }
+}
+
+
+export const updateProfilePhoto = async(profilePhoto:File)=>{
+    const token = localStorage.getItem("token");
+
+    try{
+        const response = await axios.put(`${Backend_URL}/user/profilePhotoUpdate`,{
+            profilePhoto: profilePhoto},{
+            headers:{
+                "Content-Type": "multipart/form-data",
+                Authorization: token
+            }
+        })
+        if(response.status === 200){
+            toast.success(response.data.message)
+            setTimeout(() =>{
+                window.location.href ="/user/profile"
+            },1500)
+        }
+        return response
+    }catch(error:any){
+        if(error.response.data){
+            toast.error(error.response.data.message)
+        }
+    }
+}

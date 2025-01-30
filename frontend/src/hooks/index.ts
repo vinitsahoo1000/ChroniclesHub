@@ -48,7 +48,7 @@ export interface AllCommentsProps {
 
 export const useFetchBlog = ({id}:{id:string}): FetchBlogResponse => {
     const [loading,setLoading] = useState(true);
-    const [blog,setBlog] = useState<BlogInterface[]>([]);
+    const [blog,setBlog] = useState<BlogInterface | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -59,7 +59,7 @@ export const useFetchBlog = ({id}:{id:string}): FetchBlogResponse => {
             }
         })
         .then(response=>{
-            setBlog(response.data);
+            setBlog(response.data.blog);
             setLoading(false)
         })
     },[id])

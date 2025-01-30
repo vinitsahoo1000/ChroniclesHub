@@ -5,9 +5,10 @@ import { ContentTextArea } from "./common/ContentTextArea";
 import { BlogEditorSkeleton } from "./loading/BlogEditorSkeleton";
 import { Button } from "./common/Button";
 import { ChangeEvent, useEffect, useState } from "react";
-import { BlogEditProps, updateBlog } from "../api/api";
+import { BlogEditProps, deleteBlog, updateBlog } from "../api/api";
 import { toast } from "react-toastify";
-
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css"; 
 
 
 export const BlogEditor = () => {
@@ -100,6 +101,34 @@ export const BlogEditor = () => {
         }
     }
 
+    const handleDelete = async() =>{
+        if(!id){
+            toast.error("Blog ID is missing");
+            return;
+        }
+
+        confirmAlert({
+            title: "Confirm to delete",
+            message: "Are you sure you want to delete this blog?",
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: async () => {
+                        const response = await deleteBlog(id);
+                        if (response) {
+                            toast.success("Blog deleted successfully!");
+                            setTimeout(() => {
+                                window.location.href = `/user/profile`;
+                            }, 1500);
+                        }
+                    }
+                },
+                {
+                    label: "No"
+                }
+            ]
+        });
+    }
 
     return(
         <div className="p-2">
@@ -109,8 +138,11 @@ export const BlogEditor = () => {
             <div>
                 <ContentTextArea name={"content"} onChange={handleChange} handleFileChange={handleFileChange} file={file || blogEdit?.image || null} value={blogEdit?.content}/>
             </div>
-            <div className="pl-2">
+            <div className="pl-2 pr-2 flex justify-between">
                 <Button onClick={handleUpdate} label="Update Blog"/>
+                <button onClick={handleDelete} className="focus:outline-none text-white bg-red-700 hover:bg-red-800  focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2">
+                    Delete Blog
+                </button>
             </div>
         </div>
     )

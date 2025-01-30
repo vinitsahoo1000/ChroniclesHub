@@ -4,7 +4,7 @@ import { Button } from "./common/Button"
 import { Heading } from "./common/Heading"
 import { InputBox } from "./common/InputBox"
 import { PasswordBox } from "./common/PasswordBox"
-import { updatePassword, updateUser, UserUpdate } from "../api/api"
+import { updatePassword, updateProfilePhoto, updateUser, UserUpdate } from "../api/api"
 import ProfileEditorSkeleton from "./loading/ProfileEditorSkeleton"
 import { toast } from "react-toastify"
 
@@ -16,7 +16,7 @@ export const ProfileEditor = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [password,setPassword] = useState("");
     const [user, setUser] = useState<UserUpdate | null>(null)
-
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (Currentuser) {
@@ -44,6 +44,13 @@ export const ProfileEditor = () => {
         })
     }
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+        setSelectedFile(file);
+        }
+    };
+
     const updateUserProfile = async () => {
         if (!Currentuser) {
             toast.error("User data is missing.");
@@ -60,6 +67,13 @@ export const ProfileEditor = () => {
             const response = await updatePassword(password);
             if(response){
                 setPassword("");
+            }
+        }
+        
+        if(selectedFile){
+            const response = await updateProfilePhoto(selectedFile);
+            if(response){
+                setSelectedFile(null);
             }
         }
     };
@@ -80,9 +94,20 @@ export const ProfileEditor = () => {
                 </div>
                 <div className="flex justify-center py-6">
                     <img 
-                        src="https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg" 
+                        src={`${Currentuser?.imageUrl}` ||"https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"} 
                         className="w-28 h-28 rounded-full border-4 border-purple-500 shadow-md"
                     />
+                </div>
+                <div className="flex justify-center">
+                <label className="cursor-pointer bg-blue-500 text-white px-2 py-1 mt-1 rounded-lg hover:bg-blue-600">
+                Choose File
+                    <input
+                    type="file"
+                    onChange={handleFileChange}
+                    className="hidden"
+                    />
+                </label>
+                <span className="pt-2 pl-1">{selectedFile ? selectedFile.name : "No file chosen"}</span>
                 </div>
                 <div className="space-y-4">
                     <InputBox name="name" onChange={handleChange} label="Name" placeholder="Enter your name" value={user?.name} />
@@ -96,7 +121,7 @@ export const ProfileEditor = () => {
                         id="bio" 
                         rows={4} 
                         name="bio"
-                        value={user?.bio}
+                        value={user?.bio || ""}
                         onChange={handleChange}
                         className="block w-72 p-3 ml-2 text-sm text-gray-900 bg-purple-100 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 resize-none"
                         placeholder="Write your thoughts here..."
