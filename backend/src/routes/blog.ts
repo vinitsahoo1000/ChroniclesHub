@@ -58,13 +58,22 @@ blogRouter.put("/update/:id",authMiddleware,upload.single('image'),async(req:Req
     try{
         const payload = updateBlogInput.parse(req.body)
 
-        let imageUrl = null;
+        let imageUrl = undefined;
         if(req.file){
             const result = await cloudinary.uploader.upload(req.file.path,{
                 folder:"posts/",
                 resource_type:"image"
             })
             imageUrl = result.secure_url;
+        }
+
+        const existingBlog = await prisma.blog.findUnique({
+            where: { id: blogId, authorId: userId }
+        });
+
+        // If no new image is uploaded, use the existing image URL
+        if (!imageUrl) {
+            imageUrl = existingBlog?.imageUrl;
         }
 
         const blog = await prisma.blog.update({
