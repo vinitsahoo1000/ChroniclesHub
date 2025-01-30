@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { BottomAuthPrompt } from "./common/BottomAuthPrompt"
 import { Button } from "./common/Button"
 import { Heading } from "./common/Heading"
@@ -13,6 +13,7 @@ import { toast } from "react-toastify"
 export const AuthLogin = () =>{
     const [userInput,setUserInput] = useState("");
     const [password,setPassword] = useState("");
+
 
     const handleLogin = async() =>{
         const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInput);

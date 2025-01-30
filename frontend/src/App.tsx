@@ -8,6 +8,7 @@ import { UserProfile } from "./pages/UserProfile"
 import { AuthorProfile } from "./pages/AuthorProfile"
 import { EditProfile } from "./pages/EditProfile"
 import { EditBlog } from "./pages/EditBlog"
+import PrivateRoute from "./components/PrivateRoute"
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/login" element={<Login/>} />
+        // protected route
+        <Route element={<PrivateRoute/>}>
         <Route path="/blogs" element={<Blogs/>} />
         <Route path="/blog/:id" element={<BlogPost/>} />
         <Route path="/post" element={<PostBlog/>} />
@@ -24,6 +27,7 @@ function App() {
         <Route path="/author/profile/:username" element={<AuthorProfile/>} />
         <Route path="/user/profileEditor" element={<EditProfile/>} />
         <Route path="/blog/editor/:id" element={<EditBlog/>} />
+        </Route>
       </Routes>
     </div>
   )
