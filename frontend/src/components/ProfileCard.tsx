@@ -39,12 +39,12 @@ export const ProfileCard = ({ user,isAuthor }: { user: User,isAuthor:boolean }) 
         }
 
     return (
-        <div className="bg-white shadow-lg border rounded-xl w-96 pb-11 mx-auto mt-10">
+        <div className="bg-white shadow-lg border rounded-xl max-w-sm w-full pb-11 mx-auto mt-10">
         <div className="relative h-28 bg-gradient-to-r from-blue-500 to-purple-500">
         <img
             src={user.imageUrl || "https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"}
             alt={user.name}
-            className="w-28 h-28 rounded-full absolute left-1/2 -translate-x-1/2 -bottom-12 border-4 border-white"
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full absolute left-1/2 -translate-x-1/2 -bottom-12 border-4 border-white"
         />
         </div>
         <div className="pt-16 px-4">
