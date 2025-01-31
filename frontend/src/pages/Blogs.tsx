@@ -17,6 +17,11 @@ export const Blogs = () => {
         );
     }
     
+    if(!blogs){
+        return <div>
+            No Blogs found
+        </div>
+    }
 
     return (
         <div>
