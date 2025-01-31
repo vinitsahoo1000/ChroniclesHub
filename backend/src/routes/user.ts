@@ -17,17 +17,20 @@ userRouter.post("/signup",async(req:Request,res:Response):Promise<any>=>{
     try{
         const payload = signupInput.parse(req.body)
 
-        const existingUser = await prisma.user.findFirst({
-            where:{
-                OR:[
-                    {email:payload.email},
-                    {username:payload.username}
-                ]
-            }
-        })
+        const existingEmail = await prisma.user.findFirst({
+            where: { email: payload.email },
+        });
 
-        if(existingUser){
-            return res.status(400).json({message:"User already exists"})
+        const existingUsername = await prisma.user.findFirst({
+            where: { username: payload.username },
+        });
+
+        if (existingEmail) {
+            return res.status(400).json({ message: "Email is already in use" });
+        }
+        
+        if (existingUsername) {
+            return res.status(400).json({ message: "Username is already taken" });
         }
 
         const hashedPassword = await bcrypt.hash(payload.password,10)
