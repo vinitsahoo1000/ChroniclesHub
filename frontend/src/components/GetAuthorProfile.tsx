@@ -27,13 +27,13 @@ export const GetAuthorProfile = () => {
 
     return(
         <div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-screen overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div>
                 {author && <ProfileCard user={author} isAuthor={true}/>}
                 </div>
                 <div className="p-10">
         {loading?<div> </div> :<div className="text-2xl font-bold text-gray-800 mb-4">Blogs:</div>}
-        <div className="overflow-y-scroll h-[calc(100vh-150px)]">
+        <div className="overflow-y-scroll h-[calc(100vh-150px)] lg:h-[calc(100vh-250px)]">
             {author?.blog?.length? author?.blog?.map((singleBlog) => (
                 <a href={`/blog/${singleBlog.id}`} key={singleBlog.id}>
                     <UserProfileBlogs 

@@ -4,7 +4,7 @@ import { GetAuthorProfile } from "../components/GetAuthorProfile"
 
 export const AuthorProfile = () => {
     return(
-        <div className="overflow-hidden h-screen">
+        <div>
             <Appbar/>
                 <div>
                     <GetAuthorProfile/>
