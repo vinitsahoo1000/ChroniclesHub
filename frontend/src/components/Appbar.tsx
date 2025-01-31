@@ -119,6 +119,12 @@ export const Appbar = () => {
                         Profile
                     </a>
                     <a
+                        href="/user/blogs"
+                        className="block text-white hover:bg-purple-700 rounded p-2"
+                    >
+                        My Blogs
+                    </a>
+                    <a
                         href="/post"
                         className="block text-white hover:bg-purple-700 rounded p-2"
                     >

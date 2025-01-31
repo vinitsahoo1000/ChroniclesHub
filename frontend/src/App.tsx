@@ -9,6 +9,7 @@ import { AuthorProfile } from "./pages/AuthorProfile"
 import { EditProfile } from "./pages/EditProfile"
 import { EditBlog } from "./pages/EditBlog"
 import PrivateRoute from "./components/PrivateRoute"
+import { UserBlogs } from "./pages/UsersBlogs"
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/author/profile/:username" element={<AuthorProfile/>} />
         <Route path="/user/profileEditor" element={<EditProfile/>} />
         <Route path="/blog/editor/:id" element={<EditBlog/>} />
+        <Route path="/user/blogs" element={<UserBlogs/>} />
         </Route>
       </Routes>
     </div>

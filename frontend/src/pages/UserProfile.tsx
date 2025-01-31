@@ -46,15 +46,14 @@ export const UserProfile = () => {
         {loading?<div> </div> :<div className="text-2xl font-bold text-gray-800 mb-4">Blogs:</div>}
         <div className="overflow-y-scroll h-[calc(100vh-150px)]">
             {user?.blog?.length? user?.blog?.map((singleBlog) => (
-                <a href={`/blog/${singleBlog.id}`} key={singleBlog.id}>
                     <UserProfileBlogs 
+                        key={singleBlog.id}
                         isUser={true}
                         id={singleBlog.id}
                         title={singleBlog.title} 
                         content={singleBlog.content} 
                         publishedDate={singleBlog.createdAt} 
                     />
-                </a>
             )):loading?<div> </div> :<div className="text-2xl font-semibold text-gray-800 mb-4">No Blogs Posted</div>}
         </div>
         </div>

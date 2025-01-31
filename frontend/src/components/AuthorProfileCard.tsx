@@ -41,7 +41,7 @@ export const AuthorProfileCard = ({ blog }: AuthorProfileCardProps) =>{
 
     return(
         <div className="flex items-center space-x-4">
-            <img src={blog.author.imageUrl} className="w-12 h-12 rounded-full shadow-lg" alt={blog.author.name} />
+            <img src={blog.author.imageUrl || "https://res.cloudinary.com/dbbrijt9o/image/upload/v1731909988/default-profile1_y79mi3.jpg"} className="w-10 h-10 rounded-full shadow-lg" alt={blog.author.name} />
                 <div className="flex flex-col">
                     <div className="flex items-center space-x-2">
                         <a href={blog.author.id === user?.id? '/user/profile':`/author/profile/${blog.author.username}`}><span className="text-lg font-semibold text-gray-800">{blog.author.name}</span></a>
