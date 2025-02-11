@@ -1,4 +1,4 @@
-#ChroniclesHub
+ChroniclesHub
 
 
 ChroniclesHub is a dynamic and interactive blogging platform where users can create, post, and engage with blogs. Users can follow others, like and comment on posts, and build their own blogging community.
