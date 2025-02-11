@@ -1,13 +1,94 @@
 # ChroniclesHub
-A blogging platform built using React, Node.js, TypeScript, and PostgreSQL with Prisma ORM.
 
-- Developed a dynamic frontend with React and Tailwind CSS, enabling users to sign up, post blogs, follow users, and like blogs.
-- Designed and implemented a scalable Node.js backend with TypeScript, ensuring robust API endpoints and seamless user interactions.
-- Utilized Prisma ORM for efficient database operations with PostgreSQL, supporting features like user authentication, relationships, and engagement tracking.
-- Ensured a responsive, user-friendly interface and implemented real-time updates for user engagement activities.
+## Table of Contents
 
-# Key Features:
-- User Authentication: Secure signup/login system.
-- Social Interactions: Blog likes, comments, and following functionality.
-- Database Efficiency: Optimized database schema for scalability using Prisma.
-- Responsive Design: Mobile-first UI using modern UI principles.
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+
+## Features
+
+- **User Authentication**: Signup & Login using JWT authentication.
+- **Create & Manage Blogs**: Users can write, edit, and post blogs.
+- **Social Interactions**: Like, comment, and engage with other users' blogs.
+- **Follow System**: Users can follow and stay updated with their favorite bloggers.
+- **Image Uploading**: Upload images using Multer and Cloudinary.
+- **Real-time Notifications**: Toast notifications for user interactions.
+- **Mobile-First UI**: Fully responsive and optimized for mobile devices.
+
+## Tech Stack
+
+### Frontend:
+
+- **React** – Component-based UI development.
+- **Tailwind CSS** – Utility-first styling for a sleek design.
+- **TypeScript** – Ensures type safety and better maintainability.
+- **Toast Notifications** – Provides real-time feedback to users.
+
+### Backend:
+
+- **Node.js & Express** – Backend framework for handling API requests.
+- **PostgreSQL & Prisma** – Database with ORM for efficient data handling.
+- **JWT Authentication** – Secure authentication for users.
+- **Multer & Cloudinary** – Image upload and storage solution.
+
+## Installation
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js (v18 or higher)
+- PostgreSQL
+
+### Setup
+
+1. **Clone the Repository**:
+
+    ```bash
+    git clone https://github.com/your-username/chronicleshub.git
+    cd chronicleshub
+    ```
+
+2. **Install Dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+3. **Set Up Environment Variables**:
+
+    Create a `.env` file in the root directory and add the following:
+
+    ```env
+    DATABASE_URL=your_postgres_connection_string
+    JWT_SECRET=your_secret_key
+    CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+    CLOUDINARY_API_KEY=your_cloudinary_api_key
+    CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+    ```
+
+4. **Run Database Migrations**:
+
+    ```bash
+    npx prisma migrate dev
+    ```
+
+5. **Start the Development Server**:
+
+    ```bash
+    npm run dev
+    ```
+
+## Usage
+
+Visit [http://localhost:3000](http://localhost:3000) to access the app.
+
+Sign up, create a blog, and interact with other users.
+
+## License
+
+This project is licensed under the MIT License.
+
