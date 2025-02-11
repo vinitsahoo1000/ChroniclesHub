@@ -55,6 +55,9 @@ Ensure you have the following installed:
 2. **Install Dependencies**:
 
     ```bash
+    cd frontend
+    npm install
+    cd backend
     npm install
     ```
 
@@ -79,12 +82,15 @@ Ensure you have the following installed:
 5. **Start the Development Server**:
 
     ```bash
-    npm run dev
+    cd backend
+    npm run start
+    cd frontend
+    npm run start
     ```
 
 ## Usage
 
-Visit [http://localhost:3000](http://localhost:3000) to access the app.
+Visit [http://localhost:5173](http://localhost:5173) to access the app.
 
 Sign up, create a blog, and interact with other users.
 
