@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ChroniclesHub
 
 ## Table of Contents
