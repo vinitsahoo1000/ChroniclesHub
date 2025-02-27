@@ -44,7 +44,7 @@ userRouter.post("/signup",async(req:Request,res:Response):Promise<any>=>{
             }
         })
 
-        const token = jwt.sign({userId:user.id,email:user.email},process.env.JWT_SECRET as string,{expiresIn:"7d"})
+        const token = jwt.sign({userId:user.id,email:user.email},process.env.JWT_SECRET as string)
 
         res.send({
         msg: "User signed up successfully!!",
@@ -85,7 +85,7 @@ userRouter.post("/login",async(req:Request,res:Response):Promise<any>=>{
             return res.status(400).json({message:"Invalid password"})
         }
 
-        const token = jwt.sign({userId:user.id,email:user.email},process.env.JWT_SECRET as string,{expiresIn: "7d"})
+        const token = jwt.sign({userId:user.id,email:user.email},process.env.JWT_SECRET as string)
         res.send({
         msg: "User logged in successfully!!",
         token: token
