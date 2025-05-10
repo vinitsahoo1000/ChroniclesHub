@@ -89,9 +89,29 @@ blogRouter.put("/update/:id",authMiddleware,upload.single('image'),async(req:Req
             where: { id: blogId, authorId: userId }
         });
 
-        // If no new image is uploaded, use the existing image URL
+        
         if (!imageUrl) {
             imageUrl = existingBlog?.imageUrl;
+        }
+
+        if(payload.content){
+            const contentModeration = await textModeration({content: payload.content});
+            
+            if(!contentModeration){
+                return res.status(400).json({
+                    message: "Content contains inappropriate or harmful language"
+                });
+            }
+        }
+
+        if(payload.title){
+            const titleModeration = await textModeration({content: payload.title});
+
+            if(!titleModeration){
+                return res.status(400).json({
+                    message: "Title contains inappropriate or harmful language"
+                });
+            }
         }
 
         const blog = await prisma.blog.update({
