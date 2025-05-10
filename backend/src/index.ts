@@ -1,7 +1,9 @@
 import express,{Request,Response} from "express";
 import cors from "cors";
 import { mainRouter } from "./routes";
-const PORT = 3000;
+
+
+const PORT = process.env.PORT || 3000;
 
 
 const app = express();

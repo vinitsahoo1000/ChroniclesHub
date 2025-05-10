@@ -17,9 +17,10 @@ export const Blogs = () => {
         );
     }
     
-    if(!blogs){
+    if(blogs.length === 0){
         return <div>
-            No Blogs found
+            <Appbar/>
+            <span className="flex justify-center text-xl font-bold">No Blogs!!!, be the first to post a Blog</span>
         </div>
     }
 

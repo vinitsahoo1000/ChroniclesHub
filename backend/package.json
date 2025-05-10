@@ -14,13 +14,15 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/multer": "^1.4.12",
     "@vinitsahoo1000/chronicleshub-common": "^1.2.3",
+    "axios": "^1.9.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.98.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

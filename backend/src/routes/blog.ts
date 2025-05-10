@@ -5,6 +5,7 @@ import z from "zod";
 import multer from "multer";
 import { authMiddleware } from "../middleware";
 import cloudinary from "../config/cloudinary";
+import { textModeration } from "../utils/textModeration";
 
 const prisma = new PrismaClient();
 
@@ -15,6 +16,23 @@ blogRouter.post("/post",authMiddleware,upload.single('image'),async(req:Request,
     const userId = req.userId
     try{
         const payload = createBlogInput.parse(req.body)
+
+        const [contentModeration,titleModeration] = await Promise.all([
+            textModeration({ content: payload.content }),
+            textModeration({ content: payload.title })
+        ])
+
+        if(!contentModeration){
+            return res.status(400).json({
+                message: "Content contains inappropriate or harmful language"
+            });
+        }
+
+        if(!titleModeration){
+            return res.status(400).json({
+                message: "Title contains inappropriate or harmful language"
+            });
+        }
 
         let imageUrl = null;
         if(req.file){
