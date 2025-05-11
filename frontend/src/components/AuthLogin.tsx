@@ -24,7 +24,7 @@ export const AuthLogin = () =>{
                 password: password
             })
             if(response.status === 200){
-                toast.success(response.data.msg)
+                toast.success(response.data.message)
                 localStorage.setItem("token",`Bearer ${response.data.token}`)
                 setTimeout(() => {
                     window.location.href = '/blogs';

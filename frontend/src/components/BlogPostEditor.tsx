@@ -49,7 +49,7 @@ export const BlogPostEditor = () => {
                 },
             })
             if(response.status === 200){
-                toast.success(response.data.msg);
+                toast.success(response.data.message);
                 setTimeout(() => {
                     window.location.href = `/blog/${response.data.blog.id}`;
                 }, 3000);

@@ -28,7 +28,7 @@ export const likeBlog = async (blogId:string)=>{
             }
         })
         if(response.status === 200){
-            toast.success(response.data.msg)
+            toast.success(response.data.message)
             return response;
         }
     }catch(error:any){
@@ -53,7 +53,7 @@ export const unlikeBlog = async (blogId:string)=>{
             }
         })
         if(response.status === 200){
-            toast.success(response.data.msg)
+            toast.success(response.data.message)
             return response;
         }
     }catch(error:any){
@@ -103,7 +103,7 @@ export const followAuthor = async(userId:string) =>{
             }
         })
         if(response.status === 200){
-            toast.success(response.data.msg)
+            toast.success(response.data.message)
         }
         return response;
     }catch(error:any){
@@ -128,7 +128,7 @@ export const unfollowAuthor = async(userId:string) =>{
             }
         })
         if(response.status === 200){
-            toast.info(response.data.msg)
+            toast.info(response.data.message)
         }
         return response;
     }catch(error:any){
@@ -244,7 +244,7 @@ export const updateBlog = async ({blogEdit,id}:{blogEdit:BlogEditProps | FormDat
             });
         }
         if (response.status === 200) {
-            toast.success(response.data.msg);
+            toast.success(response.data.message);
         } else {
             toast.error(response.data.message);
         }

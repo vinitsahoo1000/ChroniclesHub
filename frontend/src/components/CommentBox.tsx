@@ -32,13 +32,17 @@ export const CommentBox = ({blogId,authorId,fetchComments}:CommentBoxProps)=>{
                 }
             })
             if(response.status === 200){
-                toast.success(response.data.msg);
+                toast.success(response.data.message);
+                console.log(response.data.message)
                 setContent("");
                 fetchComments();
                 setLoading(false);
             }
-        }catch(error){
+        }catch(error:any){
+            const message = error.response.data.message || "Failed to post the comment.";
+            toast.error(message)
             console.error("Failed to post the comment:", error);
+            setLoading(false)
         }
     }
 

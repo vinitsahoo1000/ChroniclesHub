@@ -52,7 +52,7 @@ blogRouter.post("/post",authMiddleware,upload.single('image'),async(req:Request,
         })
 
         res.send({
-            msg: "Blog created successfully!!",
+            message: "Blog created successfully!!",
             blog: blog
         })
 
@@ -127,7 +127,7 @@ blogRouter.put("/update/:id",authMiddleware,upload.single('image'),async(req:Req
         })
 
         res.send({
-            msg: "Blog updated successfully!!",
+            message: "Blog updated successfully!!",
             blog: blog
         })
 
@@ -206,7 +206,7 @@ blogRouter.put("/:blogId/like",authMiddleware,async(req:Request,res:Response):Pr
             }
         })
         return res.send({
-            msg: "Blog liked successfully"
+            message: "Blog liked successfully"
         })
         
     }catch(e){
@@ -258,7 +258,7 @@ blogRouter.put("/:blogId/unlike",authMiddleware,async(req:Request,res:Response):
             }
         })
         return res.send({
-            msg: "Blog unliked successfully"
+            message: "Blog unliked successfully"
         })
     }catch(e){
         console.error(e);
@@ -281,6 +281,12 @@ blogRouter.post("/:blogId/comment",authMiddleware,async(req:Request,res:Response
             return res.status(404).json({message:"Blog not found"})
         }
 
+        const commentModeration = await textModeration({content:content})
+
+        if(!commentModeration){
+            return res.status(400).json({ message : "Content contains inappropriate or harmful language" })
+        }
+
         const comment = await prisma.comment.create({
             data:{
                 content: content,
@@ -290,7 +296,7 @@ blogRouter.post("/:blogId/comment",authMiddleware,async(req:Request,res:Response
         })
 
         return res.status(200).send({
-            msg: "Comment posted successfully",
+            message: "Comment posted successfully",
             comment: comment
         })
 

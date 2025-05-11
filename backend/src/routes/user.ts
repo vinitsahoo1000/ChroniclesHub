@@ -47,7 +47,7 @@ userRouter.post("/signup",async(req:Request,res:Response):Promise<any>=>{
         const token = jwt.sign({userId:user.id,email:user.email},process.env.JWT_SECRET as string)
 
         res.send({
-        msg: "User signed up successfully!!",
+        message: "User signed up successfully!!",
         token: token
     })
 
@@ -87,7 +87,7 @@ userRouter.post("/login",async(req:Request,res:Response):Promise<any>=>{
 
         const token = jwt.sign({userId:user.id,email:user.email},process.env.JWT_SECRET as string)
         res.send({
-        msg: "User logged in successfully!!",
+        message: "User logged in successfully!!",
         token: token
     })
 
@@ -111,7 +111,7 @@ userRouter.get("/verify",authMiddleware,async(req:Request,res:Response):Promise<
     const userId = req.userId;
 
     res.send({
-        msg: "User verified successfully!!",
+        message: "User verified successfully!!",
         username: username,
         userId: userId
     })}
@@ -309,7 +309,7 @@ userRouter.put("/follow/:userId",authMiddleware,async(req:Request,res:Response):
         })
 
         return res.send({
-            msg: "Followed successfully"
+            message: "Followed successfully"
         })
     }catch(e){
         console.error(e);
@@ -351,7 +351,7 @@ userRouter.put("/unfollow/:userId",authMiddleware,async(req:Request,res:Response
         })
 
         return res.send({
-            msg: "Unfollowed successfully"
+            message: "Unfollowed successfully"
         })
     }
     catch(e){

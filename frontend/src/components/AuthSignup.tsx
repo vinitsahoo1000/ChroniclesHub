@@ -25,7 +25,7 @@ export const AuthSignup = () => {
                 password
             });
             if(response.status === 200) {
-                toast.success(response.data.msg);
+                toast.success(response.data.message);
                 localStorage.setItem("token",`Bearer ${response.data.token}`)
                 window.location.href = "/blogs";
                 return;
