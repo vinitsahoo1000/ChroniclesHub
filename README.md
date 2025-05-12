@@ -48,8 +48,8 @@ Ensure you have the following installed:
 1. **Clone the Repository**:
 
     ```bash
-    git clone https://github.com/your-username/chronicleshub.git
-    cd chronicleshub
+    git clone https://github.com/vinitsahoo1000/ChroniclesHub.git
+    cd ChroniclesHub
     ```
 
 2. **Install Dependencies**:
@@ -85,7 +85,7 @@ Ensure you have the following installed:
     cd backend
     npm run start
     cd frontend
-    npm run start
+    npm run dev
     ```
 
 ## Usage
