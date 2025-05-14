@@ -61,7 +61,7 @@ export const GetBlog = ({blog}:{blog:BlogInterface}) =>{
             </div>
             <div className="text-xl pt-7">
                 <div className="prose prose-lg max-w-none whitespace-pre-wrap font-semibold text-black">
-                    {blog.content}
+                    <div dangerouslySetInnerHTML={{ __html: blog.content }} />
                 </div>
             </div>
             <div className="flex items-center mt-8">

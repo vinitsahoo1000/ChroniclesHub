@@ -23,7 +23,7 @@ export const BlogCard = ({title,content,date,author,profile,likes,comments}: Blo
                 {title}
             </div>
             <div className="text-lg p-2">
-                {`${content.substring(0,50)}...`}
+                <div dangerouslySetInnerHTML={{ __html:`${content.substring(0,50)}...`}} />
             </div>
             <div className="flex justify-between p-2">
                 <div>

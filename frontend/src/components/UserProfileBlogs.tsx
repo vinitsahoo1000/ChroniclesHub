@@ -28,7 +28,7 @@ export const UserProfileBlogs = ({id, title, content, publishedDate,isUser}:User
                 {title}
             </div>
             <div className="flex flex-col items-center justify-center text-xl space-y-4">
-                {content.substring(0,80)}
+                <div dangerouslySetInnerHTML={{ __html:`${content.substring(0,50)}...`}} />
             </div>
             <div>
                 {publishedDate.split('T')[0]}

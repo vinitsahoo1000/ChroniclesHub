@@ -9,6 +9,7 @@ import { BlogEditProps, deleteBlog, updateBlog } from "../api/api";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css"; 
+import { ImageInput } from "./ImageInput";
 
 
 export const BlogEditor = () => {
@@ -57,16 +58,26 @@ export const BlogEditor = () => {
                 [name]: value
             };
         })
-
-
     }
+
+    const handleContentChange = (value: string) => {
+        setblogEdit((prev) => {
+            if (!prev) return null;
+            return {
+            ...prev,
+            content: value,
+            };
+        });
+        };
+
 
     function handleFileChange(e: ChangeEvent<HTMLInputElement>): void {
         const selectedFile = e.target.files?.[0] || null;
         setFile(selectedFile);
+        console.log(file)
         setblogEdit((prev) => ({
             ...prev,
-            image: selectedFile || prev?.image, // Set file in blogEdit state
+            image: selectedFile || prev?.image, 
         }));
         
     }
@@ -88,7 +99,6 @@ export const BlogEditor = () => {
             updateData.append("content", blogEdit.content || "");
             updateData.append("image", blogEdit.image);
         } else {
-            // Otherwise, send JSON data
             updateData = { title: blogEdit.title, content: blogEdit.content };
         }
 
@@ -136,9 +146,12 @@ export const BlogEditor = () => {
                 <TitleInputBox name={"title"} onChange={handleChange} value={blogEdit?.title}/> 
             </div>
             <div>
-                <ContentTextArea name={"content"} onChange={handleChange} handleFileChange={handleFileChange} file={file || blogEdit?.image || null} value={blogEdit?.content}/>
+                <ImageInput onChange={handleFileChange}/>
             </div>
-            <div className="pl-2 pr-2 flex justify-between">
+            <div>
+                <ContentTextArea value={blogEdit?.content} setValue={handleContentChange}/>
+            </div>
+            <div className="pl-2 pr-2 flex justify-between pt-20">
                 <Button onClick={handleUpdate} label="Update Blog"/>
                 <button onClick={handleDelete} className="focus:outline-none text-white bg-red-700 hover:bg-red-800  focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2">
                     Delete Blog

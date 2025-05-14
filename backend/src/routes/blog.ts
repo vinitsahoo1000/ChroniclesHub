@@ -6,6 +6,7 @@ import multer from "multer";
 import { authMiddleware } from "../middleware";
 import cloudinary from "../config/cloudinary";
 import { textModeration } from "../utils/textModeration";
+import { stripHtmlWithDOM } from "../utils/removeCodeBlocks";
 
 const prisma = new PrismaClient();
 
@@ -17,10 +18,13 @@ blogRouter.post("/post",authMiddleware,upload.single('image'),async(req:Request,
     try{
         const payload = createBlogInput.parse(req.body)
 
-        const [contentModeration,titleModeration] = await Promise.all([
-            textModeration({ content: payload.content }),
-            textModeration({ content: payload.title })
-        ])
+        const plainContent = stripHtmlWithDOM(payload.content);
+        const plainTitle = payload.title.replace(/<[^>]+>/g, '').trim();
+
+        const [contentModeration, titleModeration] = await Promise.all([
+            textModeration({ content: plainContent }),
+            textModeration({ content: plainTitle })
+        ]);
 
         if(!contentModeration){
             return res.status(400).json({
@@ -95,7 +99,8 @@ blogRouter.put("/update/:id",authMiddleware,upload.single('image'),async(req:Req
         }
 
         if(payload.content){
-            const contentModeration = await textModeration({content: payload.content});
+            const plainText = payload.content.replace(/<[^>]+>/g, '').trim();
+            const contentModeration = await textModeration({content: plainText});
             
             if(!contentModeration){
                 return res.status(400).json({
@@ -105,7 +110,8 @@ blogRouter.put("/update/:id",authMiddleware,upload.single('image'),async(req:Req
         }
 
         if(payload.title){
-            const titleModeration = await textModeration({content: payload.title});
+            const plainText = payload.title.replace(/<[^>]+>/g, '').trim();
+            const titleModeration = await textModeration({content: plainText});
 
             if(!titleModeration){
                 return res.status(400).json({

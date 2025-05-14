@@ -9,7 +9,10 @@ type ModerationInput = {
 };
 
 type TisaneResponse = {
-    abuse?: any[];
+    abuse?: Array<{
+        type: string;
+        severity: string;
+    }>;
     hate?: any[];
     sentiment?: { polarity: string };
     [key: string]: any;
@@ -35,17 +38,17 @@ export const textModeration = async({content}:ModerationInput)=>{
         
         const data = response.data
 
-        if(data.abuse?.length || data.hate?.length){
-            console.warn("⚠️ Inappropriate content detected:", {
-            abuse: data.abuse,
-            hate: data.hate}
-        );
-        return false
-        }else{
-            console.log("✅ Content looks clean.");
-            return true
+        const isAbusive = data.abuse?.some(
+            (entry) => entry.type !== "no_meaningful_content"
+        )
+
+        if(isAbusive|| data.hate?.length){
+            console.warn("🚫 Content flagged:", data.abuse);
+            return false
         }
 
+        console.log("✅ Content looks clean.");
+        return true
     }catch (error: any) {
         console.error("Text moderation API error:", error?.response?.data || error.message);
         return null;

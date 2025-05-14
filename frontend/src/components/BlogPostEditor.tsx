@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { TitleInputBox } from "./common/TitleInputBox";
 import { ContentTextArea } from "./common/ContentTextArea";
 import { Button } from "./common/Button";
+import { ImageInput } from "./ImageInput";
 
 
 export const BlogPostEditor = () => {
@@ -23,6 +24,7 @@ export const BlogPostEditor = () => {
             setFile(null);
         }
     }
+
 
     const postBlog = async (e: React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
@@ -61,17 +63,22 @@ export const BlogPostEditor = () => {
     }
 
 
-    return(
+    return (
+    <div className="p-2 space-y-4">
         <div>
-            <div>
-                <TitleInputBox name={"title"} onChange={(e) => {setTitle(e.target.value)}}/>
-            </div>
-            <div>
-                <ContentTextArea onChange={(e) => {setContent(e.target.value)}} handleFileChange={handleFileChange} file={file}/>
-            </div>
-            <div className="pl-2">
-                <Button onClick={postBlog} label={"Post Blog"} />
-            </div>
+        <TitleInputBox name="title" onChange={(e) => setTitle(e.target.value)} />
+        </div>
+        <div>
+            <ImageInput onChange={handleFileChange}/>
+        </div>
+        <div>
+        <ContentTextArea value={content} setValue={setContent} />
+        </div>
+
+        <div className="pt-16">
+        <Button onClick={postBlog} label="Post Blog" />
+        </div>
     </div>
-    )
+);
+
 };
